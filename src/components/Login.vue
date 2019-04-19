@@ -1,14 +1,13 @@
 <template>
-  <div id="app">
-  </div>
+  <h1>登录页</h1>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'Login'
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>
