@@ -2,15 +2,15 @@
   <div class="login-container">
     <div class="centre">
       <img src="../assets/images/logo.png" height="56" width="207"/>
-      <el-form :rules="rules" :model="form">
+      <el-form :rules="rules" :model="form" ref="form">
         <el-form-item prop="username">
-          <el-input placeholder="请输入用户名" v-model="form.username"></el-input>
+          <el-input placeholder="请输入用户名" v-model="form.username" prefix-icon="iconfont icon-account"></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input placeholder="请输入密码" type="password" v-model="form.password"></el-input>
+          <el-input placeholder="请输入密码" type="password" v-model="form.password" prefix-icon="iconfont icon-eye-slash"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary">登录</el-button>
+          <el-button type="primary" @click="login('form')">登录</el-button>
           <el-button>重置</el-button>
         </el-form-item>
       </el-form>
@@ -37,6 +37,24 @@ export default {
         ]
       }
     };
+  },
+  methods: {
+    login (form) {
+      // 提交的时候也要通过表单验证
+      this.$refs[form].validate(async (valid) => {
+        if (valid) {
+          // 如果表单校验成功则发送请求服务器
+          const {data: {data, meta}} = await this.$http.post('login', this.form);
+          if (meta.status !== 200) {
+            this.$message.error(meta.msg);
+          }
+          // 如果登入成功则把 token的值 记录在 sessionStorage
+          sessionStorage.getItem('token', data.token);
+          // 然后跳转至首页
+          this.$router.push('/home');
+        }
+      });
+    }
   }
 };
 </script>
