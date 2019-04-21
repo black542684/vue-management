@@ -24,8 +24,8 @@ export default {
   data () {
     return {
       form: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '123456'
       },
       rules: {
         username: [
@@ -49,7 +49,9 @@ export default {
             this.$message.error(meta.msg);
           }
           // 如果登入成功则把 token的值 记录在 sessionStorage
-          sessionStorage.getItem('token', data.token);
+          sessionStorage.setItem('token', data.token);
+          // 登入成功之后记录登入状态
+          sessionStorage.setItem('login', 'true');
           // 然后跳转至首页
           this.$router.push('/home');
         }
