@@ -5,6 +5,8 @@ import './assets/css/global.css';
 // 导入element-ui和静态资源
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+// 导入bootstrap 样式
+import 'bootstrap/dist/css/bootstrap.css';
 // 导入字体图标的CSS文件
 import './assets/fonts/iconfont.css';
 // 导入axios

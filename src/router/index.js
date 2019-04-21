@@ -2,6 +2,12 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '@/components/Login';
 import Home from '../components/Home';
+// 导入进度条插件
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+NProgress.configure({
+  showSpinner: false
+});
 Vue.use(Router);
 
 const router = new Router({
@@ -27,9 +33,11 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   const token = sessionStorage.getItem('token');
   if (to.path === '/login') {
+    NProgress.start();
     return next();
   }
   if (token) {
+    NProgress.start();
     return next();
   }
   next('/login');
@@ -39,4 +47,7 @@ router.beforeEach((to, from, next) => {
   // next('/xxx') 去某个路由
 });
 
+router.afterEach(() => {
+  NProgress.done();
+});
 export default router;

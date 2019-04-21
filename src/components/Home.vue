@@ -8,20 +8,19 @@
     <el-container>
       <el-aside :width="flag?'65px':'180px'" class="home-aside">
         <el-menu
-            v-for="item in list"
-            :key="item.id"
             style="border: none; margin-top: 5px"
             :collapse="flag"
             :collapse-transition="false"
+            :unique-opened="true"
             background-color="#333744"
             text-color="#fff"
             active-text-color="#ffd04b">
-          <el-submenu index="1">
+          <el-submenu v-for="item in list" :key="item.order" :index="''+item.order">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>{{item.authName}}</span>
             </template>
-              <el-menu-item style="min-width: 0" v-for="(value,index) in item.children" :index="item.order+'-'+(index+1)" :key="value.id">
+              <el-menu-item style="min-width: 0" v-for="(value,index) in item.children" :index="item.order+'-'+(index+1)" :key="index+1">
                 <i class="el-icon-menu"></i>
                 {{value.authName}}
               </el-menu-item>
@@ -29,14 +28,15 @@
         </el-menu>
       </el-aside>
       <el-main class="home-main">
-        <h1>欢迎您来到VUE项目后台管理系统。</h1>
+        <router-view></router-view>
       </el-main>
     </el-container>
   </el-container>
 </template>
 
 <script>
-export default {
+// import router from '../router/home';
+const home = {
   name: 'Home',
   data () {
     return {
@@ -45,6 +45,7 @@ export default {
     };
   },
   mounted () {
+    // 登录成功之后弹出提示框
     if (sessionStorage.getItem('login') === 'true') {
       this.$message({
         message: '登录成功',
@@ -54,12 +55,15 @@ export default {
       });
       sessionStorage.setItem('login', 'false');
     }
+    // 在页面数据渲染完毕之后，获取侧边栏用户数据
     this.getData();
   },
   methods: {
+    // 点击切换侧边栏宽度
     myMenu () {
       this.flag = !this.flag;
     },
+    // 获取侧边栏数据
     async getData () {
       const {data: {data}} = await this.$http.get('menus');
       if (!data) {
@@ -94,6 +98,7 @@ export default {
     }
   }
 };
+export default home;
 </script>
 
 <style scoped>
@@ -119,12 +124,5 @@ export default {
 .home-main{
   background-color: #eaedf1;
   padding:20px;
-}
-.home-main h1{
-  font-size: 24px;
-  margin: 0;
-  font-weight: 400;
-  text-align: center;
-  padding-top: 200px;
 }
 </style>
