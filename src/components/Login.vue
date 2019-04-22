@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <div class="centre">
-      <img src="../assets/images/logo.png" height="56" width="207"/>
+      <img src="../assets/images/logo.png" height="56" width="230"/>
       <el-form :rules="rules" :model="form" ref="form">
         <el-form-item prop="username">
           <el-input placeholder="请输入用户名" v-model="form.username" prefix-icon="iconfont icon-account"></el-input>

@@ -12,15 +12,16 @@
             :collapse="flag"
             :collapse-transition="false"
             :unique-opened="true"
+            :router="true"
             background-color="#333744"
             text-color="#fff"
             active-text-color="#ffd04b">
-          <el-submenu v-for="item in list" :key="item.order" :index="''+item.order">
+          <el-submenu v-for="item in list" :key="item.id" :index="''+item.id">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>{{item.authName}}</span>
             </template>
-              <el-menu-item style="min-width: 0" v-for="(value,index) in item.children" :index="item.order+'-'+(index+1)" :key="index+1">
+              <el-menu-item style="min-width: 0" v-for="value in item.children" :index="value.path" :key="value.id">
                 <i class="el-icon-menu"></i>
                 {{value.authName}}
               </el-menu-item>
@@ -35,7 +36,6 @@
 </template>
 
 <script>
-// import router from '../router/home';
 const home = {
   name: 'Home',
   data () {
@@ -79,8 +79,6 @@ const home = {
     },
     // 用户退出
     exit () {
-      // sessionStorage.removeItem('token');
-      // this.$router.push('/login');
       this.$confirm('此操作将退出用户, 是否继续?', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',

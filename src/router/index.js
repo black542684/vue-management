@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '@/components/Login';
 import Home from '../components/Home';
+import routes from './home';
 // 导入进度条插件
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
@@ -19,12 +20,14 @@ const router = new Router({
     },
     {
       path: '/',
-      redirect: '/home'
+      redirect: '/welcome'
     },
     {
       path: '/home',
       name: 'home',
-      component: Home
+      redirect: '/welcome',
+      component: Home,
+      children: routes
     }
   ]
 });

@@ -1,9 +1,8 @@
-import VueRouter from 'vue-router';
 import welcome from '../components/Welcome';
-const router = new VueRouter({
-  routes: [
-    {path: '/welcome', component: welcome}
-  ]
-});
+import User from '../components/Users';
+const routes = [
+  {path: '/welcome', component: welcome},
+  {path: '/users', component: User}
+];
 
-export default router;
+export default routes;
