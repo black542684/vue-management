@@ -36,7 +36,7 @@
 </template>
 
 <script>
-const home = {
+export default {
   name: 'Home',
   data () {
     return {
@@ -75,7 +75,6 @@ const home = {
         });
       }
       this.list = data;
-      console.log(this.list);
     },
     // 用户退出
     exit () {
@@ -87,16 +86,10 @@ const home = {
         // 确认退出则清除sessionStorage 里面的数据，跳转到登入页面
         sessionStorage.removeItem('token');
         this.$router.push('/login');
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消退出'
-        });
       });
     }
   }
 };
-export default home;
 </script>
 
 <style scoped>
