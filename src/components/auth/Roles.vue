@@ -61,7 +61,7 @@
             <el-button-group>
               <el-button icon="el-icon-edit" @click="editRole(scope.row.id)" round></el-button>
               <el-button icon="el-icon-delete" @click="delRole(scope.row.id)"></el-button>
-              <el-button icon="el-icon-setting" @click="allotRole()" round></el-button>
+              <el-button icon="el-icon-setting" @click="allotRole(scope.row)" round></el-button>
             </el-button-group>
           </template>
         </el-table-column>
@@ -101,12 +101,19 @@
     <el-dialog width="400px" title="分配权限" :visible.sync="allotRoleFormVisible">
       <el-tree
           :data="allotRoleData"
+          empty-text="没有数据"
           show-checkbox
           node-key="id"
-          :default-expanded-keys="[2, 3]"
-          :default-checked-keys="[5]"
-          :props="defaultProps">
+          ref="tree"
+          :props="defaultProps"
+          :default-expanded-keys="rightsAllList"
+          :default-checked-keys="checkedList"
+          >
       </el-tree>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="allotRoleFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="addAllRole()">确 定</el-button>
+      </span>
     </el-dialog>
   </div>
 </template>

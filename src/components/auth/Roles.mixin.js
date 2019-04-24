@@ -30,41 +30,18 @@ export default {
       // 分配权限对话框
       allotRoleFormVisible: false,
       // 分配权限假数据
-      allotRoleData: [{
-        id: 1,
-        label: '一级 1',
-        children: [{
-          id: 4,
-          label: '二级 1-1',
-          children: [{
-            id: 9,
-            label: '三级 1-1-1'
-          }, {
-            id: 10,
-            label: '三级 1-1-2'
-          }]
-        }]
-      }, {
-        id: 2,
-        label: '一级 2',
-        children: [{
-          id: 5,
-          label: '二级 2-1'
-        }, {
-          id: 6,
-          label: '二级 2-2'
-        }]
-      }, {
-        id: 3,
-        label: '一级 3',
-        children: [{
-          id: 7,
-          label: '二级 3-1'
-        }, {
-          id: 8,
-          label: '二级 3-2'
-        }]
-      }]
+      allotRoleData: [],
+      // 分配权限数据转换
+      defaultProps: {
+        children: 'children',
+        label: 'authName'
+      },
+      // 默认展开所有的ID
+      rightsAllList: [],
+      // 根据角色ID选中对应列表
+      checkedList: [],
+      // 用户权限树形表的ID
+      userTreeId: ''
     };
   },
   mounted () {
@@ -167,8 +144,48 @@ export default {
       }).catch(() => {});
     },
     // 分配权限
-    allotRole () {
+    async allotRole (row) {
       this.allotRoleFormVisible = true;
+      // 打开之后需要把上一个用户的权限列表清空
+      this.checkedList = [];
+      // 打开后需要获取所有权限，并且渲染在页面中
+      const {data: {data, meta}} = await this.$http.get('rights/tree');
+      if (meta.status !== 200) return this.$message.error('获取权限列表失败');
+      this.allotRoleData = data;
+      // 默认展开所有权限列表
+      data.forEach(item => {
+        this.rightsAllList.push(item.id);
+        item.children.forEach(item => {
+          this.rightsAllList.push(item.id);
+          item.children.forEach(item => {});
+          this.rightsAllList.push(item.id);
+        });
+      });
+      // 把用户ID保存上，用户树形表的修改
+      this.userTreeId = row.id;
+      // 获取当前用户的权限
+      console.log(row);
+      row.child.forEach(item => {
+        this.checkedList.push(item.id);
+        item.child.forEach(item => {
+          this.checkedList.push(item.id);
+          item.child.forEach(item => {
+            this.checkedList.push(item.id);
+          });
+        });
+      });
+    },
+    // 确定分配权限
+    async addAllRole () {
+      // 这个方法可以获取选中的节点的ID值
+      console.log(this.$refs.tree.getCheckedKeys());
+      const {data: {meta}} = await this.$http.post(`roles/${this.userTreeId}/rights`, {
+        rids: this.$refs.tree.getCheckedKeys().toString()
+      });
+      if (meta.status !== 200) return this.$message.error('修改用户权限失败');
+      this.$message.success('修改用户权限成功');
+      this.allotRoleFormVisible = false;
+      this.getData();
     }
   }
 };
