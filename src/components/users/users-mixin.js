@@ -165,7 +165,7 @@ export default {
         this.getData();
         // 提示用户删除成功
         this.$message.success('删除用户成功');
-      });
+      }).catch(() => {});
     },
     // 修改用户状态
     async userStatus (id, mgState) {
