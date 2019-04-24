@@ -13,6 +13,7 @@
             :collapse-transition="false"
             :unique-opened="true"
             :router="true"
+            :default-active="$route.name"
             background-color="#333744"
             text-color="#fff"
             active-text-color="#ffd04b">
@@ -57,6 +58,7 @@ export default {
     }
     // 在页面数据渲染完毕之后，获取侧边栏用户数据
     this.getData();
+    // 获取哈希
   },
   methods: {
     // 点击切换侧边栏宽度
