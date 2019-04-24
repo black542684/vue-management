@@ -145,11 +145,6 @@ export default {
 </script>
 
 <style scoped>
-  .el-card {
-    margin-top: 15px;
-    background-color: #fff;
-  }
-
   .is-plain {
     color: #409eff;
     background: #ecf5ff;

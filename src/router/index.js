@@ -4,6 +4,7 @@ import Login from '@/components/Login';
 import Home from '../components/home/Home';
 import Welcome from '../components/home/Welcome';
 import User from '../components/users/Users';
+import Rights from '../components/auth/Rights';
 // 导入进度条插件
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
@@ -30,7 +31,8 @@ const router = new Router({
       component: Home,
       children: [
         {path: '/welcome', name: 'welcome', component: Welcome},
-        {path: '/users', name: 'users', component: User}
+        {path: '/users', name: 'users', component: User},
+        {path: '/rights', name: 'rights', component: Rights}
       ]
     }
   ]
