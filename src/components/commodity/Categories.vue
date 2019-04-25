@@ -32,8 +32,8 @@
           <el-table-column label="操作">
             <template slot-scope="scope">
               <el-button-group>
-                <el-button icon="el-icon-edit" round></el-button>
-                <el-button icon="el-icon-delete" round></el-button>
+                <el-button icon="el-icon-edit" @click="editCategories(scope.row.cat_name,scope.row.cat_id)" round></el-button>
+                <el-button icon="el-icon-delete" @click="delCategories(scope.row.cat_id)" round></el-button>
               </el-button-group>
             </template>
           </el-table-column>
@@ -74,6 +74,18 @@
       <span slot="footer" class="dialog-footer">
     <el-button @click="addDialogVisible = false">取 消</el-button>
     <el-button type="primary" @click="addCommodity()">确 定</el-button>
+  </span>
+    </el-dialog>
+    <!--编辑分类对话框-->
+    <el-dialog title="编辑分类" :visible.sync="editDialogVisible" width="400px">
+      <el-form ref="editForm" label-width="100px" :rules="rules" :model="editFormLabelAlign">
+        <el-form-item label="分类名称：" prop="cat_name">
+          <el-input v-model="editFormLabelAlign.cat_name"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="editDialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="editCommodity()">确 定</el-button>
   </span>
     </el-dialog>
   </div>
