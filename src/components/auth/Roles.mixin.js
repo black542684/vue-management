@@ -37,7 +37,7 @@ export default {
         label: 'authName'
       },
       // 默认展开所有的ID
-      rightsAllList: [],
+      // rightsAllList: [],
       // 根据角色ID选中对应列表
       checkedList: [],
       // 用户权限树形表的ID
@@ -120,7 +120,6 @@ export default {
     },
     // 删除权限
     delRight (roleID, id, row) {
-      console.log(roleID, id);
       this.$confirm('此操作将删除权限, 是否继续?', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -145,7 +144,6 @@ export default {
     },
     // 分配权限
     async allotRole (row) {
-      this.allotRoleFormVisible = true;
       // 打开之后需要把上一个用户的权限列表清空
       this.checkedList = [];
       // 打开后需要获取所有权限，并且渲染在页面中
@@ -153,34 +151,37 @@ export default {
       if (meta.status !== 200) return this.$message.error('获取权限列表失败');
       this.allotRoleData = data;
       // 默认展开所有权限列表
-      data.forEach(item => {
-        this.rightsAllList.push(item.id);
-        item.children.forEach(item => {
-          this.rightsAllList.push(item.id);
-          item.children.forEach(item => {});
-          this.rightsAllList.push(item.id);
-        });
-      });
+      // data.forEach(item => {
+      //   this.rightsAllList.push(item.id);
+      //   item.children.forEach(item => {
+      //     this.rightsAllList.push(item.id);
+      //     item.children.forEach(item => {});
+      //     this.rightsAllList.push(item.id);
+      //   });
+      // });
       // 把用户ID保存上，用户树形表的修改
       this.userTreeId = row.id;
-      // 获取当前用户的权限
-      console.log(row);
+      // 获取当前用户的权限,只选择最后一层的节点的ID
       row.child.forEach(item => {
-        this.checkedList.push(item.id);
+        // this.checkedList.push(item.id);
         item.child.forEach(item => {
-          this.checkedList.push(item.id);
+          // this.checkedList.push(item.id);
           item.child.forEach(item => {
             this.checkedList.push(item.id);
           });
         });
       });
+      // 先获取数据，再显示对话框
+      this.allotRoleFormVisible = true;
     },
     // 确定分配权限
     async addAllRole () {
-      // 这个方法可以获取选中的节点的ID值
-      console.log(this.$refs.tree.getCheckedKeys());
+      // 这个方法可以获取选中的节点的ID值, 需要获取全选和半选按钮的ID值
+      // console.log(this.$refs.tree.getCheckedKeys(), this.$refs.tree.getHalfCheckedKeys());
+      const arr = [...this.$refs.tree.getCheckedKeys(), ...this.$refs.tree.getHalfCheckedKeys()];
+      console.log(arr);
       const {data: {meta}} = await this.$http.post(`roles/${this.userTreeId}/rights`, {
-        rids: this.$refs.tree.getCheckedKeys().toString()
+        rids: arr.toString()
       });
       if (meta.status !== 200) return this.$message.error('修改用户权限失败');
       this.$message.success('修改用户权限成功');

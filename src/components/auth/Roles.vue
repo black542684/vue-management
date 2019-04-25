@@ -17,6 +17,7 @@
         <el-table-column width="100" type="expand">
           <template slot-scope="scope">
             <!--一级权限-->
+            <span v-if="scope.row.child.length === 0">没有数据</span>
             <el-row
                 style="border-bottom:1px solid #eee"
                 v-for="(firstItem,i) in scope.row.child"
@@ -106,7 +107,7 @@
           node-key="id"
           ref="tree"
           :props="defaultProps"
-          :default-expanded-keys="rightsAllList"
+          :default-expand-all="true"
           :default-checked-keys="checkedList"
           >
       </el-tree>
