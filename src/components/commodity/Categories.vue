@@ -55,12 +55,13 @@
         :visible.sync="addDialogVisible"
         width="400px"
         >
-      <el-form label-width="100px" :rules="rules" :model="addFormLabelAlign">
+      <el-form ref="addForm" label-width="100px" :rules="rules" :model="addFormLabelAlign">
         <el-form-item label="分类名称：" prop="cat_name">
           <el-input v-model="addFormLabelAlign.cat_name"></el-input>
         </el-form-item>
         <el-form-item label="分类名称：">
           <el-cascader
+              change-on-select
               style="width:100%"
               expand-trigger="hover"
               :options="options"
@@ -72,7 +73,7 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
     <el-button @click="addDialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="addDialogVisible = false">确 定</el-button>
+    <el-button type="primary" @click="addCommodity()">确 定</el-button>
   </span>
     </el-dialog>
   </div>
