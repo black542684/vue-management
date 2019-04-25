@@ -8,6 +8,7 @@ import Rights from '../components/auth/Rights';
 import Roles from '../components/auth/Roles';
 import Goods from '../components/commodity/goods';
 import Categories from '../components/commodity/Categories';
+import Params from '../components/commodity/Params';
 // 导入进度条插件
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
@@ -38,7 +39,8 @@ const router = new Router({
         {path: '/rights', name: 'rights', component: Rights},
         {path: '/roles', name: 'roles', component: Roles},
         {path: '/goods', name: 'goods', component: Goods},
-        {path: '/categories', name: 'categories', component: Categories}
+        {path: '/categories', name: 'categories', component: Categories},
+        {path: '/params', name: 'params', component: Params}
       ]
     }
   ]
