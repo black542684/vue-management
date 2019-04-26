@@ -48,6 +48,7 @@ export default {
         total: data.total
       };
       this.tableData = data.result;
+      console.log(this.tableData);
     },
     // 点击切换分页
     currentPage (e) {
