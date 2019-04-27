@@ -28,11 +28,24 @@
             <el-table
                 :data="manyTableData"
                 style="width: 100%">
-              <el-table-column type="expand">
+              <el-table-column width="100" type="expand">
                 <template slot-scope="scope">
-                    <el-tag size="normal" v-for="(item,i) in scope.row.attr_vals" :key="i" closable>
-                      {{item}}
-                    </el-tag>
+                  <el-tag size="normal" v-for="(item,i) in scope.row.attr_vals" :key="i" closable>
+                    {{item}}
+                  </el-tag>
+                  <el-tag
+                      :disable-transitions="true"
+                      v-show="!scope.row.showTag"
+                      @click="showInput(scope.row.showTag)"
+                      size="normal"
+                      style="width: 100px;">+添加tag</el-tag>
+                  <el-input
+                      ref="Input"
+                      @blur="hiddenInput(scope.row)"
+                      @keyup.native.enter="hiddenInput(scope.row)"
+                      v-show="scope.row.showTag"
+                      v-model="inputData"
+                      style="width: 100px;margin:5px;"></el-input>
                 </template>
               </el-table-column>
               <el-table-column
@@ -49,7 +62,7 @@
               </el-table-column>
             </el-table>
           </el-tab-pane>
-          <el-tab-pane label="静态参数" name="only ">
+          <el-tab-pane label="静态参数" name="only">
             <el-button type="success" disabled>添加静态参数</el-button>
             <!--静态参数的表格-->
             <el-table
@@ -57,17 +70,19 @@
                 style="width: 100%">
               <el-table-column
                   type="index"
-                  width="50">
+                  width="100">
               </el-table-column>
               <el-table-column
-                  label="属性名称"
-                  width="120">
+                  prop="attr_name"
+                  label="属性名称">
               </el-table-column>
               <el-table-column
-                  label="属性值"
-                  width="120">
+                  label="属性值">
+                <template slot-scope="scope">
+                  <el-tag size="normal" style="width:200px;text-overflow:ellipsis;overflow: hidden;">{{scope.row.attr_vals}}</el-tag>
+                </template>
               </el-table-column>
-              <el-table-column width="50" label="操作">
+              <el-table-column width="200" label="操作">
                 <template slot-scope="scope">
                   <el-button-group>
                     <el-button icon="el-icon-edit" round></el-button>
