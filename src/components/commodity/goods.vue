@@ -16,7 +16,9 @@
           </div>
         </el-col>
         <el-col :span="18">
-          <el-button type="primary" class="is-plain">添加商品</el-button>
+          <router-link :to="{path:'/goods/add'}">
+            <el-button type="primary" class="is-plain">添加商品</el-button>
+          </router-link>
         </el-col>
       </el-row>
       <!--表单区域-->
@@ -42,7 +44,7 @@
             <template slot-scope="scope">
               <el-button-group>
                 <el-button icon="el-icon-edit" round></el-button>
-                <el-button icon="el-icon-delete" round></el-button>
+                <el-button icon="el-icon-delete" @click="delGoods(scope.row)" round></el-button>
               </el-button-group>
             </template>
           </el-table-column>
