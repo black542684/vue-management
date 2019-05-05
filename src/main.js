@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
-import './assets/css/global.css';
 // 导入element-ui和静态资源
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
@@ -11,8 +10,18 @@ import moment from 'moment';
 import 'bootstrap/dist/css/bootstrap.css';
 // 导入字体图标的CSS文件
 import './assets/fonts/iconfont.css';
+// 全局样式
+import './assets/css/global.css';
 // 导入axios
 import axios from './http';
+// 导入vue-quill-editor富文本编辑器
+import VueQuillEditor from 'vue-quill-editor';
+// 导入富文本编辑器的样式
+import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.snow.css';
+import 'quill/dist/quill.bubble.css';
+// 把富文本编辑器注册为中间件
+Vue.use(VueQuillEditor);
 // 把axios添加到vue的原型中，方便在后面使用
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false;

@@ -80,9 +80,9 @@ export default {
     // 获取用户列表数据
     async getData () {
       // 如果没有输入内容则查询的是第一页
-      if (this.searchUsers === '') {
-        this.userForm.pagenum = 1;
-      }
+      // if (this.searchUsers === '') {
+      //   this.userForm.pagenum = 1;
+      // }
       const {data: {data, meta}} = await this.$http.get('users', {params: this.userForm});
       if (meta.status !== 200) return this.$message.error('获取用户数据列表失败');
       // 把数据渲染到列表
@@ -211,9 +211,9 @@ export default {
     },
     // 用户查询
     search () {
-      console.log(this.searchUsers);
       // 设置查询的内容
       this.userForm.query = this.searchUsers;
+      this.userForm.pagenum = 1;
       this.getData();
     }
   }

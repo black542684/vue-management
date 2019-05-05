@@ -46,7 +46,7 @@ export default {
           // 如果表单校验成功则发送请求服务器
           const {data: {data, meta}} = await this.$http.post('login', this.form);
           if (meta.status !== 200) {
-            this.$message.error(meta.msg);
+            return this.$message.error(meta.msg);
           }
           // 如果登入成功则把 token的值 记录在 sessionStorage
           sessionStorage.setItem('token', data.token);

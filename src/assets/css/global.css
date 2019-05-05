@@ -7,3 +7,6 @@ html, body, #app{
   margin-top: 15px;
   background-color: #fff;
 }
+.el-step__title{
+  font-size:12px;
+}

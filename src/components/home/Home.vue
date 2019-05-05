@@ -13,16 +13,20 @@
             :collapse-transition="false"
             :unique-opened="true"
             :router="true"
-            :default-active="$route.name"
+            :default-active="'/'+ $route.name"
             background-color="#333744"
             text-color="#fff"
             active-text-color="#ffd04b">
-          <el-submenu v-for="item in list" :key="item.id" :index="''+item.id">
+          <el-submenu v-for="(item, i) in list" :key="item.id" :index="''+item.id">
             <template slot="title">
-              <i class="el-icon-location"></i>
+              <i v-if="i===0" class="iconfont icon-user-fill"></i>
+              <i v-if="i===1" class="iconfont icon-cog"></i>
+              <i v-if="i===2" class="iconfont icon-shoppingcart"></i>
+              <i v-if="i===3" class="iconfont icon-file"></i>
+              <i v-if="i===4" class="iconfont icon-chart-area"></i>
               <span>{{item.authName}}</span>
             </template>
-              <el-menu-item style="min-width: 0" v-for="value in item.children" :index="value.path" :key="value.id">
+              <el-menu-item style="min-width: 0" v-for="value in item.children" :index="'/' + value.path" :key="value.id">
                 <i class="el-icon-menu"></i>
                 {{value.authName}}
               </el-menu-item>
@@ -59,6 +63,7 @@ export default {
     // 在页面数据渲染完毕之后，获取侧边栏用户数据
     this.getData();
     // 获取哈希
+    // console.log(this.$route.name);
   },
   methods: {
     // 点击切换侧边栏宽度

@@ -41,6 +41,7 @@ export default {
     },
     // 搜索商品
     search () {
+      this.goodsList.pagenum = 1;
       this.goodsList.query = this.searchGoods;
       this.getData();
       console.log(this.goodsList.pagenum);
