@@ -10,6 +10,7 @@ import Goods from '../components/commodity/goods';
 import Categories from '../components/commodity/Categories';
 import Params from '../components/commodity/Params';
 import AddGoods from '../components/commodity/AddGoods';
+import Orders from '../components/orders/Orders';
 // 导入进度条插件
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
@@ -42,7 +43,8 @@ const router = new Router({
         {path: '/goods', name: 'goods', component: Goods},
         {path: '/goods/add', name: 'add', component: AddGoods},
         {path: '/categories', name: 'categories', component: Categories},
-        {path: '/params', name: 'params', component: Params}
+        {path: '/params', name: 'params', component: Params},
+        {path: '/orders', name: 'orders', component: Orders}
       ]
     }
   ]
